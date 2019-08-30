@@ -1,0 +1,53 @@
+# Use distribution Ubuntu 18.04 Bionic
+dist: bionic
+
+# Use python build environment.
+language: python
+
+# Handle dependencies in separate directory.
+before_install:
+    - DEPS_DIR="${HOME}/deps"
+    - mkdir -p "${DEPS_DIR}"
+    - cd "${DEPS_DIR}"
+
+# Install necessary packages.
+install:
+    - git clone https://github.com/OpenSimulationInterface/osi-validation.git
+    - cd osi-validation
+    - git checkout development
+    - git clone https://github.com/OpenSimulationInterface/open-simulation-interface.git
+    - git clone https://github.com/OpenSimulationInterface/proto2cpp.git
+    - sudo apt-get install virtualenv
+    - virtualenv -p /usr/bin/python3 vpython
+    - source vpython/bin/activate
+    - cd open-simulation-interface 
+    - pip install .
+    - pip install -r requirements.txt
+    - cd ..
+    - pip install .
+    - cp -R requirements-osi-3 vpython/lib/python3.6/site-packages/
+  
+# Addons necessary for documentation.
+# addons:
+#     apt:
+#         packages:
+        
+
+# Change directory back to default build directory.
+before_script:
+    - cd "${TRAVIS_BUILD_DIR}"
+
+# Run the build script and generate documentation.
+script:
+    - osi-validator/vpython/bin/python __main__.py
+    - osivalidator
+
+# Deploy the documentation on github (only for master branch).
+# deploy:
+#     provider: pages
+#     skip_cleanup: true
+#     local_dir: doc/html
+#     keep-history: true
+#     github_token: ${GH_REPO_TOKEN}
+#     on: 
+#         branch: master 
