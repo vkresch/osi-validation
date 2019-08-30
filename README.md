@@ -1,4 +1,5 @@
 # OSI Validator
+[![Travis Build Status](https://travis-ci.org/vkresch/osi-validation.svg?branch=master)](https://travis-ci.org/vkresch/osi-validation)
 
 ## Presentation
 

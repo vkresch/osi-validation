@@ -28,9 +28,10 @@ install:
     - cp -R requirements-osi-3 vpython/lib/python3.6/site-packages/
   
 # Addons necessary for documentation.
-# addons:
-#     apt:
-#         packages:
+addons:
+    apt:
+        packages:
+            - python3-pip
         
 
 # Change directory back to default build directory.
