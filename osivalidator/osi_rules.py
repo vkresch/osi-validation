@@ -202,8 +202,7 @@ class TypeRulesContainer(OSIRuleNode):
         return self.nested_types[name]
 
     def __repr__(self):
-        return f'TypeContainer({len(self.nested_types)}):\n' + \
-               ','.join(map(str, self.nested_types))
+        return f'TypeContainer({len(self.nested_types)}):\n' + ','.join(map(str, self.nested_types))
 
 
 class MessageTypeRules(TypeRulesContainer):
