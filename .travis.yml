@@ -24,7 +24,7 @@ install:
         if [ ! -f ${DEPS_DIR}/protobuf/install/bin/protoc ] ; then mkdir -p protobuf ; travis_retry wget --no-check-certificate --quiet -O - ${PROTOBUF_URL} | tar --strip-components=1 -xz -C protobuf ; cd protobuf ; ./configure --prefix=${DEPS_DIR}/protobuf/install ; make ; make install ; fi
         export PATH=${DEPS_DIR}/protobuf/install/bin:${PATH}
 
-    - sudo python3 setup.py install
+    - sudo python setup.py install
     - git clone https://github.com/OpenSimulationInterface/osi-validation.git
     - cd osi-validation
     - git checkout development
