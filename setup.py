@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     setuptools.setup(
         name="osivalidator",
-        version="0.1a0",
+        version="0.5",
         author=AUTHOR,
         description="Validator for OSI messages",
         long_description=README,
