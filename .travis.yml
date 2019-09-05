@@ -44,7 +44,6 @@ script:
     # Debug
     - which python
     - python -m site
-    - python -m site --user-site
 
     # Install osi-validation
     - cd open-simulation-interface

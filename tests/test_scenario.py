@@ -8,7 +8,7 @@ class TestDataContainer(unittest.TestCase):
     """Test class of OSIScenario class"""
 
     def setUp(self):
-        self.MESSAGE_LENGTH = 50
+        self.MESSAGE_LENGTH = 15
         self.odc = OSIScenario()
         self.odc.from_file(path="data/small_test.txt",
                            type_name="SensorView")
