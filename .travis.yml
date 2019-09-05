@@ -32,10 +32,8 @@ install:
         PROTO2CPP_URL="https://github.com/OpenSimulationInterface/proto2cpp.git"
         if [ ! -f ${DEPS_DIR}/proto2cpp ] ; then mkdir -p proto2cpp ; git clone ${PROTO2CPP_URL} ${DEPS_DIR}/proto2cpp ; fi
 
-    - sudo apt-get install python3-pip protobuf-compiler
+    - sudo apt-get install python3-pip protobuf-compiler unzip
     - pip install progress    
-  
-      
 
 # Change directory back to default build directory.
 before_script:
@@ -43,16 +41,28 @@ before_script:
 
 # Run the build script and generate documentation.
 script:
-    # Install osi-validation to be parsed by sphinx
-    - git clone https://github.com/vkresch/osi-validation.git
-    - cd osi-validation
+    # Install osi-validation
     - git clone https://github.com/OpenSimulationInterface/open-simulation-interface.git
     - git clone https://github.com/OpenSimulationInterface/proto2cpp.git
     - cd open-simulation-interface
     - pip install .
     - cd ..
     - pip install .    
+
+    # Unzip data
+    - unzip data/small_test.zip -d data
+
+    # Check if rule syntax in osi is correct
+    - python test_cases.py
+
+    # Check rule correctness with unittests
     - python -m unittest discover tests
+
+    # Show validator usage
     - python __main__.py -h
     - osivalidator -h
+
+    # Run validator on a small test
+    - python osivalidator/__main__.py data/small_test.txt
+    - osivalidator data/small_test.txt
 
