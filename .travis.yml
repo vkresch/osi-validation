@@ -10,7 +10,6 @@ python:
 # Handle dependencies in separate directory.
 before_install:
     - DEPS_DIR="${HOME}/deps"
-    - SITE_PACKAGES = "python -m site --user-site"
     - mkdir -p "${DEPS_DIR}"
     - cd "${DEPS_DIR}"
 
@@ -52,7 +51,7 @@ script:
     - pip install .
     - cd ..
     - pip install .    
-    - cp -R requirements-osi-3 "${SITE_PACKAGES}""
+    - cp -R requirements-osi-3 /home/travis/virtualenv/python3.6.7/lib/python3.6/site-packages/
 
     # Unzip data
     - unzip data/small_test.zip -d data
