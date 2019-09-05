@@ -10,6 +10,7 @@ python:
 # Handle dependencies in separate directory.
 before_install:
     - DEPS_DIR="${HOME}/deps"
+    - SITE_PACKAGES = "python -m site --user-site"
     - mkdir -p "${DEPS_DIR}"
     - cd "${DEPS_DIR}"
 
@@ -41,28 +42,30 @@ before_script:
 
 # Run the build script and generate documentation.
 script:
+    # Debug
+    - which python
+    - python -m site
+    - python -m site --user-site
+
     # Install osi-validation
-    - git clone https://github.com/OpenSimulationInterface/open-simulation-interface.git
-    - git clone https://github.com/OpenSimulationInterface/proto2cpp.git
     - cd open-simulation-interface
     - pip install .
     - cd ..
     - pip install .    
+    - cp -R requirements-osi-3 "${SITE_PACKAGES}""
 
     # Unzip data
     - unzip data/small_test.zip -d data
 
     # Check if rule syntax in osi is correct
-    - python test_cases.py
+    # - python test_cases.py
 
     # Check rule correctness with unittests
     - python -m unittest discover tests
 
     # Show validator usage
-    - python __main__.py -h
     - osivalidator -h
 
     # Run validator on a small test
-    - python osivalidator/__main__.py data/small_test.txt
     - osivalidator data/small_test.txt
 
